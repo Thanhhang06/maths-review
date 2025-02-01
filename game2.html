@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Matching</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Match the number with its word</h2>
+    <div id="game">
+        <button onclick="checkMatch(1, 'one')">1 - One</button>
+        <button onclick="checkMatch(2, 'three')">2 - Three</button>
+        <button onclick="checkMatch(3, 'two')">3 - Two</button>
+    </div>
+    <p id="result"></p>
+    <button onclick="window.location.href='home.html'">Back</button>
+
+    <script>
+        function checkMatch(number, word) {
+            let correctMatches = {1: 'one', 2: 'two', 3: 'three'};
+            if (correctMatches[number] === word) {
+                document.getElementById("result").innerText = "Correct! 🎉";
+            } else {
+                document.getElementById("result").innerText = "Try again!";
+            }
+        }
+    </script>
+</body>
+</html>
