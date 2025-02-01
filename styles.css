@@ -54,7 +54,7 @@ button:hover {
     background: #d84361;
 }
 
-/* Chuyển đổi giữa đăng nhập và đăng ký */
+/* Ẩn form đăng ký ban đầu */
 .hidden {
     display: none;
 }
