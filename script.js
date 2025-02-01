@@ -32,6 +32,11 @@ function signup() {
 
     console.log("🔹 Trying to Sign Up:", email);
 
+    if (!firebase.apps.length) {
+        console.error("❌ Firebase has not been initialized!");
+        return;
+    }
+
     auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
             let user = userCredential.user;
