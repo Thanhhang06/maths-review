@@ -1,80 +1,72 @@
-/* Áp dụng phông chữ đẹp */
-body {
-    font-family: 'Montserrat', sans-serif;
-    background: url('https://cdn.pixabay.com/photo/2015/09/05/20/02/equations-925714_1280.jpg') no-repeat center center fixed;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+// Cấu hình Firebase
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
+};
+
+// Khởi tạo Firebase nếu chưa khởi tạo
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
 }
 
-/* Làm to và đẹp bảng login */
-.container {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 40px;
-    width: 450px; /* Làm rộng bảng */
-    text-align: center;
-    border-radius: 15px; /* Bo góc */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Đổ bóng */
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+// Đợi trang load xong rồi mới gán sự kiện
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("signup-btn").addEventListener("click", signup);
+    document.getElementById("toggle-signup").addEventListener("click", toggleForm);
+    document.getElementById("toggle-login").addEventListener("click", toggleForm);
+});
+
+// Hàm đăng ký tài khoản
+function signup() {
+    let email = document.getElementById("signup-email").value;
+    let password = document.getElementById("signup-password").value;
+
+    console.log("🔹 Trying to Sign Up:", email);
+
+    if (!auth) {
+        console.error("❌ Firebase Authentication chưa được khởi tạo!");
+        alert("Lỗi hệ thống! Vui lòng tải lại trang.");
+        return;
+    }
+
+    auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            let user = userCredential.user;
+            console.log("✅ User Created:", user);
+
+            return user.sendEmailVerification();
+        })
+        .then(() => {
+            console.log("📩 Verification email sent!");
+            alert("Verification email sent! Please check your inbox.");
+
+            return db.collection("users").doc(auth.currentUser.uid).set({
+                email: email,
+                approved: false,
+                verified: false
+            });
+        })
+        .then(() => {
+            console.log("✅ User added to Firestore");
+            alert("Signup successful! Wait for admin approval.");
+            auth.signOut();
+            toggleForm();
+        })
+        .catch((error) => {
+            console.error("❌ Signup Error:", error.message);
+            alert("Signup Failed: " + error.message);
+        });
 }
 
-/* Tiêu đề Welcome */
-.welcome-text {
-    font-size: 28px;
-    font-weight: 700; /* Đậm hơn */
-    color: #ff4d6d;
-    margin-bottom: 20px;
-}
-
-/* Làm chữ to hơn */
-h2 {
-    font-weight: 600;
-    font-size: 24px;
-    margin-bottom: 15px;
-}
-
-/* Input đẹp hơn */
-input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 8px; /* Bo góc input */
-    border: 1px solid #ccc;
-    font-size: 18px;
-}
-
-/* Nút đăng nhập & đăng ký to và đẹp */
-button {
-    background: #ff4d6d;
-    color: white;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 20px; /* Làm chữ to hơn */
-    font-weight: 600;
-    width: 100%;
-    transition: background 0.3s;
-}
-
-button:hover {
-    background: #d84361;
-}
-
-/* Ẩn form đăng ký ban đầu */
-.hidden {
-    display: none;
-}
-
-/* Link đổi từ Login sang Sign Up */
-p a {
-    color: #ff4d6d;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-p a:hover {
-    text-decoration: underline;
+// Hàm chuyển đổi giữa đăng nhập và đăng ký
+function toggleForm() {
+    document.querySelector(".login-box").classList.toggle("hidden");
+    document.querySelector(".signup-box").classList.toggle("hidden");
 }
