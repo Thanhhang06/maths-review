@@ -121,3 +121,7 @@ function approveUser(userId) {
 }
 
 window.onload = loadUsers;
+
+console.log("Firebase Config Loaded:", firebaseConfig);
+console.log("Firebase App Initialized:", firebase.apps.length > 0);
+
