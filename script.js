@@ -91,4 +91,19 @@ function signup() {
             alert(error.message);
         });
 }
+// Kiểm tra nếu là Admin, nếu không thì chặn truy cập
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        db.collection("users").doc(user.uid).get().then((doc) => {
+            if (doc.exists && doc.data().role === "admin") {
+                loadUsers(); // Nếu là Admin, tải danh sách tài khoản
+            } else {
+                alert("You are not authorized to access this page.");
+                window.location.href = "index.html"; // Chặn truy cập nếu không phải Admin
+            }
+        });
+    } else {
+        window.location.href = "index.html"; // Chuyển hướng về trang đăng nhập nếu chưa đăng nhập
+    }
+});
 
