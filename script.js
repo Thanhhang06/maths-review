@@ -102,3 +102,7 @@ function login() {
             alert("Login Failed: " + error.message);
         });
 }
+function toggleForm() {
+    document.querySelector(".login-box").classList.toggle("hidden");
+    document.querySelector(".signup-box").classList.toggle("hidden");
+}
