@@ -10,13 +10,14 @@ const firebaseConfig = {
   measurementId: "G-CJP6KPRRML"
 };
 
-// Kiểm tra Firebase đã khởi tạo chưa, tránh lỗi "already declared"
+// Kiểm tra Firebase đã được khởi tạo chưa
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 
 const auth = firebase.auth();
 const db = firebase.firestore();
+
 
 // Chuyển đổi giữa đăng nhập và đăng ký
 function toggleForm() {
@@ -60,6 +61,7 @@ function signup() {
             alert("Signup Failed: " + error.message);
         });
 }
+
 
 // Đăng nhập
 function login() {
