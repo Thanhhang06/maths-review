@@ -1,7 +1,7 @@
-/* Ảnh nền cho trang */
+/* Áp dụng phông chữ đẹp */
 body {
-    font-family: Arial, sans-serif;
-    background: url('https://source.unsplash.com/1600x900/?math,education') no-repeat center center fixed;
+    font-family: 'Montserrat', sans-serif;
+    background: url('https://cdn.pixabay.com/photo/2015/09/05/20/02/equations-925714_1280.jpg') no-repeat center center fixed;
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -10,44 +10,53 @@ body {
     margin: 0;
 }
 
-/* Khung đăng nhập */
+/* Làm to và đẹp bảng login */
 .container {
-    background: rgba(255, 255, 255, 0.85); /* Làm mờ khung */
-    padding: 30px;
-    width: 350px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    width: 450px; /* Làm rộng bảng */
     text-align: center;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 15px; /* Bo góc */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Đổ bóng */
 }
 
 /* Tiêu đề Welcome */
 .welcome-text {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 28px;
+    font-weight: 700; /* Đậm hơn */
     color: #ff4d6d;
     margin-bottom: 20px;
 }
 
-/* Input */
-input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+/* Làm chữ to hơn */
+h2 {
+    font-weight: 600;
+    font-size: 24px;
+    margin-bottom: 15px;
 }
 
-/* Nút */
+/* Input đẹp hơn */
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px; /* Bo góc input */
+    border: 1px solid #ccc;
+    font-size: 18px;
+}
+
+/* Nút đăng nhập & đăng ký to và đẹp */
 button {
     background: #ff4d6d;
     color: white;
-    padding: 12px;
+    padding: 14px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px; /* Làm chữ to hơn */
+    font-weight: 600;
     width: 100%;
-    font-weight: bold;
+    transition: background 0.3s;
 }
 
 button:hover {
@@ -59,10 +68,11 @@ button:hover {
     display: none;
 }
 
-/* Link */
+/* Link đổi từ Login sang Sign Up */
 p a {
     color: #ff4d6d;
     text-decoration: none;
+    font-weight: 600;
 }
 
 p a:hover {
