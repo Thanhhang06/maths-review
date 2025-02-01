@@ -78,3 +78,27 @@ p a {
 p a:hover {
     text-decoration: underline;
 }
+/* Trang Tài liệu (resources.html) */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    background: #f8f8f8;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    font-size: 18px;
+    text-align: center;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #ff4d6d;
+    font-weight: 600;
+}
+
+ul li a:hover {
+    text-decoration: underline;
+}
