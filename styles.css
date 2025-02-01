@@ -1,16 +1,69 @@
+/* Nền trang */
 body {
     font-family: Arial, sans-serif;
-    background: url('background.jpg') no-repeat center center fixed;
+    background: url('https://source.unsplash.com/random/1920x1080') no-repeat center center fixed;
     background-size: cover;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
-.login-container {
+/* Khung đăng nhập & đăng ký */
+.container {
     background: rgba(255, 255, 255, 0.9); /* Hiệu ứng mờ */
+    padding: 30px;
     width: 350px;
-    padding: 20px;
-    margin: 100px auto;
+    text-align: center;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
+
+/* Tiêu đề */
+h2 {
+    color: #ff4d6d;
+}
+
+/* Input */
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Nút */
+button {
+    background: #ff4d6d;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #d84361;
+}
+
+/* Chuyển đổi giữa đăng nhập và đăng ký */
+.hidden {
+    display: none;
+}
+
+/* Link */
+p a {
+    color: #ff4d6d;
+    text-decoration: none;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+
 
