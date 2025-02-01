@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Math Quiz</h2>
+    <p id="question"></p>
+    <input type="number" id="answer">
+    <button onclick="checkAnswer()">Submit</button>
+    <p id="feedback"></p>
+    <button onclick="window.location.href='home.html'">Back</button>
+
+    <script>
+        let num1 = Math.floor(Math.random() * 10) + 1;
+        let num2 = Math.floor(Math.random() * 10) + 1;
+        let correctAnswer = num1 + num2;
+        document.getElementById("question").innerText = `What is ${num1} + ${num2}?`;
+
+        function checkAnswer() {
+            let userAnswer = parseInt(document.getElementById("answer").value);
+            if (userAnswer === correctAnswer) {
+                document.getElementById("feedback").innerText = "Correct! 🎉";
+            } else {
+                document.getElementById("feedback").innerText = "Try again!";
+            }
+        }
+    </script>
+</body>
+</html>
