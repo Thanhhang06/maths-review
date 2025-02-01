@@ -70,3 +70,8 @@ function toggleForm() {
     document.querySelector(".login-box").classList.toggle("hidden");
     document.querySelector(".signup-box").classList.toggle("hidden");
 }
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("resources-btn").addEventListener("click", function() {
+        window.location.href = "resources.html";
+    });
+});
