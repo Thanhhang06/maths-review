@@ -10,32 +10,21 @@ const firebaseConfig = {
   measurementId: "G-CJP6KPRRML"
 };
 
-// Kiểm tra Firebase đã được khởi tạo chưa
+// Kiểm tra nếu Firebase chưa được khởi tạo
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 
+// Khởi tạo `auth` và `db`
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-
-// Chuyển đổi giữa đăng nhập và đăng ký
-function toggleForm() {
-    document.querySelector(".login-box").classList.toggle("hidden");
-    document.querySelector(".signup-box").classList.toggle("hidden");
-}
-
-// Đăng ký tài khoản và xác thực email
+// Hàm đăng ký tài khoản
 function signup() {
     let email = document.getElementById("signup-email").value;
     let password = document.getElementById("signup-password").value;
 
     console.log("🔹 Trying to Sign Up:", email);
-
-    if (!firebase.apps.length) {
-        console.error("❌ Firebase has not been initialized!");
-        return;
-    }
 
     auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
@@ -50,16 +39,17 @@ function signup() {
                 });
 
             // Lưu tài khoản vào Firestore
-            db.collection("users").doc(user.uid).set({
+            return db.collection("users").doc(user.uid).set({
                 email: email,
                 approved: false,
                 verified: false
-            }).then(() => {
-                console.log("✅ User added to Firestore");
-                alert("Signup successful! Wait for admin approval.");
-                auth.signOut();
-                toggleForm();
             });
+        })
+        .then(() => {
+            console.log("✅ User added to Firestore");
+            alert("Signup successful! Wait for admin approval.");
+            auth.signOut();
+            toggleForm();
         })
         .catch((error) => {
             console.error("❌ Signup Error:", error.message);
