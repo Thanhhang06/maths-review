@@ -1,7 +1,7 @@
-/* Nền trang */
+/* Ảnh nền cho trang */
 body {
     font-family: Arial, sans-serif;
-    background: url('https://source.unsplash.com/random/1920x1080') no-repeat center center fixed;
+    background: url('https://source.unsplash.com/1600x900/?math,education') no-repeat center center fixed;
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -10,9 +10,9 @@ body {
     margin: 0;
 }
 
-/* Khung đăng nhập & đăng ký */
+/* Khung đăng nhập */
 .container {
-    background: rgba(255, 255, 255, 0.9); /* Hiệu ứng mờ */
+    background: rgba(255, 255, 255, 0.85); /* Làm mờ khung */
     padding: 30px;
     width: 350px;
     text-align: center;
@@ -20,9 +20,12 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Tiêu đề */
-h2 {
+/* Tiêu đề Welcome */
+.welcome-text {
+    font-size: 24px;
+    font-weight: bold;
     color: #ff4d6d;
+    margin-bottom: 20px;
 }
 
 /* Input */
@@ -65,5 +68,3 @@ p a {
 p a:hover {
     text-decoration: underline;
 }
-
-
