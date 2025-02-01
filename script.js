@@ -23,20 +23,24 @@ function signup() {
     let email = document.getElementById("signup-email").value;
     let password = document.getElementById("signup-password").value;
 
+    console.log("Attempting to Sign Up with Email:", email);
+
     auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
             let user = userCredential.user;
+
+            console.log("User Created:", user);
 
             // Gửi email xác thực
             user.sendEmailVerification().then(() => {
                 alert("Verification email sent! Please check your inbox.");
             });
 
-            // Lưu tài khoản vào Firestore với trạng thái chưa được duyệt
+            // Lưu tài khoản vào Firestore
             db.collection("users").doc(user.uid).set({
                 email: email,
-                approved: false,  // Chờ Admin phê duyệt
-                verified: false   // Chờ xác thực email
+                approved: false,
+                verified: false
             }).then(() => {
                 alert("Signup successful! Wait for admin approval.");
                 auth.signOut();
@@ -44,7 +48,8 @@ function signup() {
             });
         })
         .catch((error) => {
-            alert(error.message);
+            console.error("Signup Error:", error.message);
+            alert("Signup Failed: " + error.message);
         });
 }
 
