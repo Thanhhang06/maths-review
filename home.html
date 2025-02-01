@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maths Games</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Welcome, <span id="user"></span>!</h2>
+    <p>Select a game:</p>
+    <button onclick="window.location.href='game1.html'">Math Quiz</button>
+    <button onclick="window.location.href='game2.html'">Number Matching</button>
+    <button onclick="logout()">Logout</button>
+
+    <script>
+        document.getElementById("user").innerText = localStorage.getItem("username") || "Guest";
+        function logout() {
+            localStorage.removeItem("username");
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
