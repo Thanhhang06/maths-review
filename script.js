@@ -67,3 +67,28 @@ auth.onAuthStateChanged((user) => {
         window.location.href = "index.html";
     }
 });
+function signup() {
+    let email = document.getElementById("signup-email").value;
+    let password = document.getElementById("signup-password").value;
+
+    auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            let user = userCredential.user;
+
+            // Xác định quyền: Nếu email là của bạn (Admin), thì cấp quyền admin
+            let role = (email === "admin@example.com") ? "admin" : "user";
+
+            db.collection("users").doc(user.uid).set({
+                email: email,
+                approved: (role === "admin"), // Admin được phê duyệt ngay lập tức
+                role: role
+            }).then(() => {
+                alert("Signup successful! Wait for admin approval if you are a user.");
+                toggleForm();
+            });
+        })
+        .catch((error) => {
+            alert(error.message);
+        });
+}
+
