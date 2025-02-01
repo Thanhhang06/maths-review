@@ -1,12 +1,5 @@
-// Cấu hình Firebase
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Firebase cấu hình (Chỉ khai báo MỘT lần, không lặp lại)
 const firebaseConfig = {
   apiKey: "AIzaSyCUWgc1VPqgpNnIZKpYqFssdjZAB_QYUQk",
   authDomain: "maths-login.firebaseapp.com",
@@ -17,15 +10,15 @@ const firebaseConfig = {
   measurementId: "G-CJP6KPRRML"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+// Kiểm tra Firebase đã khởi tạo chưa, tránh lỗi "already declared"
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
 
-firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// Chuyển đổi giữa đăng nhập & đăng ký
+// Chuyển đổi giữa đăng nhập và đăng ký
 function toggleForm() {
     document.querySelector(".login-box").classList.toggle("hidden");
     document.querySelector(".signup-box").classList.toggle("hidden");
@@ -36,18 +29,19 @@ function signup() {
     let email = document.getElementById("signup-email").value;
     let password = document.getElementById("signup-password").value;
 
-    console.log("Attempting to Sign Up with Email:", email);
+    console.log("🔹 Trying to Sign Up:", email);
 
     auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
             let user = userCredential.user;
-
-            console.log("User Created:", user);
+            console.log("✅ User Created:", user);
 
             // Gửi email xác thực
-            user.sendEmailVerification().then(() => {
-                alert("Verification email sent! Please check your inbox.");
-            });
+            user.sendEmailVerification()
+                .then(() => {
+                    console.log("📩 Verification email sent!");
+                    alert("Verification email sent! Please check your inbox.");
+                });
 
             // Lưu tài khoản vào Firestore
             db.collection("users").doc(user.uid).set({
@@ -55,13 +49,14 @@ function signup() {
                 approved: false,
                 verified: false
             }).then(() => {
+                console.log("✅ User added to Firestore");
                 alert("Signup successful! Wait for admin approval.");
                 auth.signOut();
                 toggleForm();
             });
         })
         .catch((error) => {
-            console.error("Signup Error:", error.message);
+            console.error("❌ Signup Error:", error.message);
             alert("Signup Failed: " + error.message);
         });
 }
@@ -94,53 +89,6 @@ function login() {
             });
         })
         .catch((error) => {
-            alert(error.message);
+            alert("Login Failed: " + error.message);
         });
 }
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCUWgc1VPqgpNnIZKpYqFssdjZAB_QYUQk",
-  authDomain: "maths-login.firebaseapp.com",
-  projectId: "maths-login",
-  storageBucket: "maths-login.firebasestorage.app",
-  messagingSenderId: "547386894786",
-  appId: "1:547386894786:web:74af1e2f9ff689fcbc4e5b",
-  measurementId: "G-CJP6KPRRML"
-};
-
-function loadUsers() {
-    db.collection("users").get().then((querySnapshot) => {
-        let userList = document.getElementById("user-list");
-        userList.innerHTML = "";
-
-        querySnapshot.forEach((doc) => {
-            let user = doc.data();
-            let row = document.createElement("tr");
-
-            row.innerHTML = `
-                <td>${user.email}</td>
-                <td>${user.approved ? "Approved" : "Pending"}</td>
-                <td>
-                    ${user.approved 
-                        ? `<button disabled>Approved</button>` 
-                        : `<button onclick="approveUser('${doc.id}')">Approve</button>`}
-                </td>
-            `;
-
-            userList.appendChild(row);
-        });
-    });
-}
-
-function approveUser(userId) {
-    db.collection("users").doc(userId).update({ approved: true }).then(() => {
-        alert("User approved successfully!");
-        loadUsers();
-    });
-}
-
-window.onload = loadUsers;
-
-console.log("Firebase Config Loaded:", firebaseConfig);
-console.log("Firebase App Initialized:", firebase.apps.length > 0);
-
