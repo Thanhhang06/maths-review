@@ -4,18 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mathscrit - Login & Sign Up</title>
+
+    <!-- Google Fonts (Montserrat) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Kết nối file CSS -->
     <link rel="stylesheet" href="styles.css">
-
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
-
-<!-- Đảm bảo script.js tải sau khi Firebase đã tải xong -->
-<script src="script.js" defer></script>
-
-
-
 </head>
 <body>
     <div class="container">
@@ -26,8 +22,8 @@
             <h2>Login Now</h2>
             <input type="email" id="login-email" placeholder="Email *">
             <input type="password" id="login-password" placeholder="Password *">
-            <button onclick="login()">LOGIN</button>
-            <p>Don't have an account? <a href="#" onclick="toggleForm()">Sign up</a></p>
+            <button id="login-btn">LOGIN</button>
+            <p>Don't have an account? <a href="#" id="toggle-signup">Sign up</a></p>
         </div>
 
         <!-- Đăng ký -->
@@ -35,12 +31,17 @@
             <h2>Sign Up Now</h2>
             <input type="email" id="signup-email" placeholder="Email *">
             <input type="password" id="signup-password" placeholder="Password *">
-            <button onclick="signup()">SIGN UP</button>
-            <p>Already have an account? <a href="#" onclick="toggleForm()">Login</a></p>
+            <button id="signup-btn">SIGN UP</button>
+            <p>Already have an account? <a href="#" id="toggle-login">Login</a></p>
         </div>
     </div>
 
-    <!-- Load script.js sau khi HTML đã tải xong -->
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
+    <!-- Kết nối JavaScript -->
     <script src="script.js" defer></script>
 </body>
 </html>
