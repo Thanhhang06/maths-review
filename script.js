@@ -88,3 +88,36 @@ const firebaseConfig = {
     messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
     appId: "YOUR_APP_ID"
 };
+
+function loadUsers() {
+    db.collection("users").get().then((querySnapshot) => {
+        let userList = document.getElementById("user-list");
+        userList.innerHTML = "";
+
+        querySnapshot.forEach((doc) => {
+            let user = doc.data();
+            let row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${user.email}</td>
+                <td>${user.approved ? "Approved" : "Pending"}</td>
+                <td>
+                    ${user.approved 
+                        ? `<button disabled>Approved</button>` 
+                        : `<button onclick="approveUser('${doc.id}')">Approve</button>`}
+                </td>
+            `;
+
+            userList.appendChild(row);
+        });
+    });
+}
+
+function approveUser(userId) {
+    db.collection("users").doc(userId).update({ approved: true }).then(() => {
+        alert("User approved successfully!");
+        loadUsers();
+    });
+}
+
+window.onload = loadUsers;
